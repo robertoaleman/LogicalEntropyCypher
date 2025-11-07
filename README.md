@@ -53,7 +53,7 @@ This document presents a practical, educational approach to wrapping standard ci
 </li>
  	<li><strong>AEAD</strong>
 <ul>
- 	<li>AES-256-GCM encrypts the concatenated C?.</li>
+ 	<li>AES-256-GCM encrypts the concatenated C' .</li>
  	<li>Associated Data includes version, k, hash of cuts, hash of permutation and permuted segment lengths to protect the internal logic.</li>
 </ul>
 </li>
