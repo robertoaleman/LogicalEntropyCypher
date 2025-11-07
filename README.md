@@ -142,6 +142,32 @@ Value statement The logical entropy layer forces an attacker to reconstruct and 
 <code>$rec = logic_entropy_lite_decrypt_full($seed512, $enc);</code>
 <code>echo "Reversal (decrypted): {$rec}\n";</code>
 &nbsp;
+
+<br>
+
+<span dir="auto">The "lite" version adds a layer of structural complexity on top of a proven AEAD (AES-256-GCM). Its practical robustness comes primarily from two independent layers:</span>
+<ul>
+ 	<li><span dir="auto">the symmetric security of the underlying AEAD engine (confidentiality and integrity), and</span></li>
+ 	<li><span dir="auto">the authentication of the logic (cuts, permutations, lengths) included in the AD.</span></li>
+</ul>
+<span dir="auto">This means that as long as AES-GCM remains secure and the correct usage rules (no repeated nonces, sufficiently long keys) are followed, basic confidentiality and integrity remain intact. The logical layer increases the practical difficulty for a real attacker by forcing them to reconstruct an additional authenticated internal structure.</span>
+<div></div>
+<h3><span dir="auto">Advantages over encryption methods it uses (AES, ChaCha)</span></h3>
+<ul>
+ 	<li><strong><span dir="auto">Additional workload for the attacker:</span></strong><span dir="auto"> it is not enough to attack the AEAD block; the authenticated segmentation and permutation must be reconstructed.</span></li>
+ 	<li><strong><span dir="auto">Extended authentication:</span></strong><span dir="auto"> the internal logic is covered by AD, so any structural manipulation would break the AEAD verification.</span></li>
+ 	<li><strong><span dir="auto">Configurable diffusion:</span></strong><span dir="auto"> allows you to adjust the degree of mixing (XOR vs Feistel) to increase diffusion if required.</span></li>
+ 	<li><strong><span dir="auto">Operational compatibility:</span></strong><span dir="auto"> It integrates without replacing proven cryptographic engines, thus inheriting their basic guarantees.</span></li>
+</ul>
+<div></div>
+<h3><span dir="auto">Known limitations and weaknesses</span></h3>
+<ul>
+ 	<li><strong><span dir="auto">Security reduced to that of AEAD:</span></strong><span dir="auto"> if AES-GCM fails in practice (due to incorrect use, vulnerable implementation, or specific future attacks), the lightweight layer does not fix it; it only increases the practical cost of the attack.</span></li>
+ 	<li><strong><span dir="auto">Dependence on secrecy and nonces:</span></strong><span dir="auto"> the determination of PRNG and HKDF requires unique secrecy/nonce; reuse of nonce or seeds compromises security.</span></li>
+ 	<li><strong><span dir="auto">Lite model simplifies mixing:</span></strong><span dir="auto"> XOR-only mode is easily reversible (by design) and offers limited diffusion against advanced crypto analysis; it is not intended to replace strong internal rounds.</span></li>
+ 	<li><strong><span dir="auto">Metadata surface:</span></strong><span dir="auto"> Although AD authenticates the logic, the inclusion and serialization of metadata must be flawless; errors in formatting or handling of AD can create subtle flaws.</span></li>
+ 	<li><strong><span dir="auto">Not verified by formal analysis:</span></strong><span dir="auto"> the educational version has not undergone cryptographic auditing or formal testing; construction risks (order of operations, AD packaging) remain.</span></li>
+</ul>
 <h4>Production recommendations</h4>
 <ul>
  	<li>Never reuse a nonce with the same AEAD key.</li>
