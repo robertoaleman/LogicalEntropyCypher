@@ -6,7 +6,7 @@
 // and authentication of the logic itself. It is designed to integrate 
 // without breaking compatibility or infrastructure.
 // Author: Roberto Aleman, ventics.com
-// License: GNU GPL v3
+// License: The GNU Affero General Public License 
 // 
 
 /// --- Minimal cryptographic utilities ---
@@ -232,3 +232,4 @@ echo "Original: {$msg}<br/>";
 echo "Ciphertext (hex): {$enc['ciphertext_hex']}<br/>";
 echo "Reversal (decrypted): {$rec}<br/>";
 ?>
+
