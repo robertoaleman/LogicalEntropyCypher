@@ -66,7 +66,7 @@ This document presents a practical, educational approach to wrapping standard ci
 <thead>
 <tr>
 <th>Aspect</th>
-<th>AES?256?GCM</th>
+<th>AES-256-GCM</th>
 <th>Logic Entropy Lite</th>
 </tr>
 </thead>
