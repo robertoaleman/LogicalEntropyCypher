@@ -2,7 +2,7 @@
 Encryption Engine Based on Logical Entropy
 <br> A practical and didactic approach to encapsulating standard ciphers (such as AES-256-GCM) with a "logical entropy" layer that adds structural variability, configurable diffusion, and authentication of the logic itself. It is designed to integrate seamlessly without compromising compatibility or the infrastructure of any cipher where it is implemented.
 <br><b>Author: Roberto Aleman, ventics.com</b> 
-<br><b>License: GNU GPL v3</b>
+<br><b>License: AGPL v3</b>
 
 <h1>Encryption Engine Based on Logical Entropy</h1>
 
